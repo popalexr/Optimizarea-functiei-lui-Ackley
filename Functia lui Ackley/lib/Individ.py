@@ -9,7 +9,7 @@ B = 0.2
 C = 2 * PI
 
 class Individ:
-    def __init__(self, dimension, chromosome):
+    def __init__(self, dimension: int, chromosome: list):
         self.dimension = dimension
         self.chromosome = chromosome
         self.fitness = None
@@ -32,7 +32,7 @@ class Individ:
     def get_chromosome(self) -> list:
         return self.chromosome.copy()
 
-    def get_fitness(self) -> int:
+    def get_fitness(self) -> float:
         return self.fitness
 
     def __exp(self, expression) -> float:
