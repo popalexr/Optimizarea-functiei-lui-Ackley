@@ -8,7 +8,7 @@ A = 20
 B = 0.2
 C = 2 * PI
 
-class Individ:
+class Specimen:
     def __init__(self, dimension: int, chromosome: list):
         self.dimension = dimension
         self.chromosome = chromosome
