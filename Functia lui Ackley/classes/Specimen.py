@@ -13,8 +13,15 @@ class Specimen:
         self.dimension = dimension
         self.chromosome = chromosome
         self.fitness = None
+        self.__calculate_fitness()
 
-    def calculate_fitness(self):
+    def get_chromosome(self) -> list:
+        return self.chromosome.copy()
+
+    def get_fitness(self) -> float:
+        return self.fitness
+
+    def __calculate_fitness(self):
         """
         Fitness function is Ackley function.
         """
@@ -28,12 +35,6 @@ class Specimen:
         )
 
         self.fitness = -A * expression_1 - expression_2 + A + self.__exp(1)
-
-    def get_chromosome(self) -> list:
-        return self.chromosome.copy()
-
-    def get_fitness(self) -> float:
-        return self.fitness
 
     def __exp(self, expression) -> float:
         return pow(E, expression)
