@@ -1,7 +1,4 @@
-from math import sqrt, cos
-
-E = 2.718281828459045
-PI = 3.141592653589793
+from math import sqrt, cos, e as E, pi as PI
 
 # Recommended values. Source: https://www.sfu.ca/~ssurjano/ackley.html
 A = 20
@@ -11,12 +8,16 @@ C = 2 * PI
 class Specimen:
     def __init__(self, dimension: int, chromosome: list):
         self.dimension = dimension
-        self.chromosome = chromosome
+        self.chromosome = chromosome.copy()
         self.fitness = None
         self.__calculate_fitness()
 
     def get_chromosome(self) -> list:
         return self.chromosome.copy()
+    
+    def set_chromosome(self, chromosome: list):
+        self.chromosome = chromosome.copy()
+        self.__calculate_fitness()
 
     def get_fitness(self) -> float:
         return self.fitness
