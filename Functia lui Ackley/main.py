@@ -1,21 +1,8 @@
-from classes.Specimen import Specimen
-from lib import GA
-import random
+from classes.GA import GA
 
-x = []
+if __name__ == "__main__":
+    genetical_algorithm = GA(dimension=2, initial_population=5555, mutation_rate=0.25)
 
-for i in range(10):
-    x.append(Specimen(2, [random.randint(-32, 32), random.randint(-32, 32)]))
+    genetical_algorithm.run()
 
-    x[-1].calculate_fitness()
-
-# selectia
-# crossover
-# mutatia
-# supravietuire
-
-for i in x:
-    print("-------------")
-    print(f'Cromozomi: {i.get_chromosome()}')
-    print(f'Fitness: {i.get_fitness()}')
-    print("-------------")
+    print(f"Best specimen: {genetical_algorithm.get_best_specimen().get_chromosome()} with fitness {genetical_algorithm.get_best_specimen().get_fitness()}")
