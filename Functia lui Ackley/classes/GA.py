@@ -115,11 +115,10 @@ class GA:
         children_generation = children.get_generation() # Get the children list from the Generation object
 
         for child in children_generation:
-            should_mutate = random.uniform(0, 100) < self.mutation_rate * 100 # Check if the mutation should be applied
             mutation = random.uniform(MUTATION_MIN, MUTATION_MAX) # Generate a random mutation value
 
             # Apply the mutation if necessary
-            chromosome = [x + mutation if should_mutate else x for x in child.get_chromosome()]
+            chromosome = [x + mutation if random.uniform(0, 100) < self.mutation_rate * 100 else x for x in child.get_chromosome()]
 
             # Update the chromosome of the child
             child.set_chromosome(chromosome.copy())
