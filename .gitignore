@@ -1,4 +1,8 @@
+/.venv
+/classes
+/main.py
+/requirements.txt
 .venv/
 .idea/
-__pycache__/
-.DS_Store
+/__pycache__/
+/.DS_Store

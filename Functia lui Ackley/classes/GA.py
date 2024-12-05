@@ -17,6 +17,7 @@ class GA:
         self.mutation_rate = mutation_rate
         self.best_specimen = None
         self.generation_number = 0
+        self.best_fitnesses_list = []
         
         self.current_generation = self.__generate_population() # Generate the initial population
         
@@ -118,7 +119,12 @@ class GA:
             mutation = random.uniform(MUTATION_MIN, MUTATION_MAX) # Generate a random mutation value
 
             # Apply the mutation if necessary
-            chromosome = [x + mutation if random.uniform(0, 100) < self.mutation_rate * 100 else x for x in child.get_chromosome()]
+            chromosome = [
+                x + random.uniform(MUTATION_MIN, MUTATION_MAX)
+                if random.uniform(0, 100) < self.mutation_rate * 100
+                else x
+                for x in child.get_chromosome()
+            ]
 
             # Update the chromosome of the child
             child.set_chromosome(chromosome.copy())
@@ -150,6 +156,9 @@ class GA:
         # Get the best specimen from the current generation
         best_specimen = min(self.current_generation.get_generation(), key=lambda x: x.get_fitness())
 
+        # Save the best specimen fitness to the plot list of best fitnesses
+        self.best_fitnesses_list.append(best_specimen.get_fitness())
+
         # Check if the best specimen is better than the current best specimen
         if self.best_specimen is None or best_specimen.get_fitness() < self.best_specimen.get_fitness():
             self.best_specimen = best_specimen
@@ -162,6 +171,13 @@ class GA:
         @return: Specimen object representing the best specimen or None if the best specimen was not found
         """
         return self.best_specimen
+    
+    def get_best_fitnesses_list(self) -> list:
+        """
+        Get the list of best fitnesses for each generation.
+        @return: list of best fitnesses
+        """
+        return self.best_fitnesses_list
 
     def __generate_population(self) -> Generation:
         """
