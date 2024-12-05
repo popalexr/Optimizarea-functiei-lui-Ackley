@@ -2,7 +2,7 @@ import unittest     # Unit testing
 from math import isclose
 from classes.Specimen import Specimen
 
-from parameterized import parameterized  # Parameterized testing and random parameters
+from parameterized import parameterized  # type: ignore # Parameterized testing and random parameters
 import random
 
 from math import sqrt, cos, e as E, pi as PI # Math functions and constants
