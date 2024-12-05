@@ -1,7 +1,7 @@
 from classes.GA import GA
 
 if __name__ == "__main__":
-    genetical_algorithm = GA(dimension=2, initial_population=5555, mutation_rate=0.25)
+    genetical_algorithm = GA(dimension=2, initial_population=100, mutation_rate=0.25)
 
     genetical_algorithm.run()
 
