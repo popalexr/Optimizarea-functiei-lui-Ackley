@@ -2,3 +2,7 @@
 /classes
 /main.py
 /requirements.txt
+.venv/
+.idea/
+/__pycache__/
+/.DS_Store
