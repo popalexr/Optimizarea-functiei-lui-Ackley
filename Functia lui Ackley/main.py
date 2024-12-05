@@ -1,8 +1,18 @@
+import os
+import dotenv
+
 from classes.GA import GA
 from classes.Plot import Plot
 
 if __name__ == "__main__":
-    genetical_algorithm = GA(dimension=2, initial_population=100, mutation_rate=0.25)
+    # Load the environment variables
+    dotenv.load_dotenv()
+
+    genetical_algorithm = GA(
+        dimension=int(os.getenv('DIMENSION')),
+        initial_population=int(os.getenv('INITIAL_POPULATION')),
+        mutation_rate=float(os.getenv('MUTATION_RATE')),
+    )
 
     genetical_algorithm.run()
 
