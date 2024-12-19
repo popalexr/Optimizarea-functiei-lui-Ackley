@@ -60,6 +60,7 @@ class GA:
 
             # Apply survival operator on the children
             self.survival(children_generation)
+
     def local_search(self, children: Generation) -> Generation:
         """
         Apply local search (hill climbing) to improve the children.
@@ -89,6 +90,7 @@ class GA:
             child.set_chromosome(best_chromosome.copy())
 
         return Generation(children_generation.copy())
+
     def selection(self, specimen_list: list) -> list:
         """
         Tournament selection method.

@@ -6,9 +6,6 @@ import json
 from classes.GA import GA
 from classes.Plot import Plot
 
-
-
-
 if __name__ == "__main__":
     # Load the environment variables
     dotenv.load_dotenv()
@@ -23,9 +20,7 @@ if __name__ == "__main__":
 
     print(f"Best specimen: {genetical_algorithm.get_best_specimen().get_chromosome()} with fitness {genetical_algorithm.get_best_specimen().get_fitness()}")
 
-
     best_fitnesses = genetical_algorithm.get_best_fitnesses_list()
-
 
     performance_data = []
     for i in range(len(best_fitnesses)):
@@ -35,7 +30,7 @@ if __name__ == "__main__":
         
     })
 
-# Save to JSON
+    # Save to JSON
     with open("performance_data.json", mode="w") as file:
         json.dump(performance_data, file, indent=4)
 
