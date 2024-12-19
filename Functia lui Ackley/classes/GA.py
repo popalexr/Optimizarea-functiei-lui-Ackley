@@ -10,6 +10,10 @@ MAX = 32.768
 MUTATION_MIN = -0.5
 MUTATION_MAX = 0.5
 
+# Local search parameters
+LOCAL_SEARCH_ITER = 10
+LOCAL_SEARCH_STEP = 0.1
+
 class GA:
     def __init__(self, dimension, initial_population, mutation_rate):
         self.dimension = dimension
@@ -49,11 +53,42 @@ class GA:
             # Apply mutation to the children
             children_generation = self.mutation(children_generation)
 
+            # Apply local search to the children
+            children_generation = self.local_search(children_generation)
+
             self.generation_number += 1
 
             # Apply survival operator on the children
             self.survival(children_generation)
+    def local_search(self, children: Generation) -> Generation:
+        """
+        Apply local search (hill climbing) to improve the children.
+        @param children: Generation object containing children
+        @return: Generation object with locally optimized children
+        """
+        children_generation = children.get_generation()
         
+        for child in children_generation:
+            best_chromosome = child.get_chromosome()
+            best_fitness = child.get_fitness()
+
+            # Perform local search for a fixed number of iterations
+            for _ in range(LOCAL_SEARCH_ITER):
+                neighbor = [
+                    max(MIN, min(MAX, x + random.uniform(-LOCAL_SEARCH_STEP, LOCAL_SEARCH_STEP)))
+                    for x in best_chromosome
+                ]
+                neighbor_fitness = Specimen(self.dimension, neighbor).get_fitness()
+
+                # Update to the better neighbor
+                if neighbor_fitness < best_fitness:
+                    best_chromosome = neighbor
+                    best_fitness = neighbor_fitness
+
+            # Update the child chromosome with the best local solution
+            child.set_chromosome(best_chromosome.copy())
+
+        return Generation(children_generation.copy())
     def selection(self, specimen_list: list) -> list:
         """
         Tournament selection method.
