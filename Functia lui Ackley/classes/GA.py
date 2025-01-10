@@ -21,6 +21,7 @@ class GA:
         self.mutation_rate = mutation_rate
         self.best_specimen = None
         self.generation_number = 0
+        self.last_best_specimen_generation = 0
         self.best_fitnesses_list = []
         
         self.current_generation = self.__generate_population() # Generate the initial population
@@ -53,8 +54,9 @@ class GA:
             # Apply mutation to the children
             children_generation = self.mutation(children_generation)
 
-            # Apply local search to the children
-            children_generation = self.local_search(children_generation)
+            # Apply local search to the children if the best specimen was not updated for 2 generations
+            if self.generation_number - self.last_best_specimen_generation >= 2:
+                children_generation = self.local_search(children_generation)
 
             self.generation_number += 1
 
@@ -153,8 +155,6 @@ class GA:
         children_generation = children.get_generation() # Get the children list from the Generation object
 
         for child in children_generation:
-            mutation = random.uniform(MUTATION_MIN, MUTATION_MAX) # Generate a random mutation value
-
             # Apply the mutation if necessary
             chromosome = [
                 x + random.uniform(MUTATION_MIN, MUTATION_MAX)
@@ -199,6 +199,7 @@ class GA:
         # Check if the best specimen is better than the current best specimen
         if self.best_specimen is None or best_specimen.get_fitness() < self.best_specimen.get_fitness():
             self.best_specimen = best_specimen
+            self.last_best_specimen_generation = self.generation_number
 
             print(f"[Generation {self.generation_number}] New best specimen: {self.best_specimen.get_chromosome()} with fitness: {self.best_specimen.get_fitness()}")
     
